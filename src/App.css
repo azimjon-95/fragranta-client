@@ -1,0 +1,250 @@
+/* App Container */
+.app-container {
+  width: 100%;
+  /* margin: 0 auto; */
+  padding: 0 20px 20px 20px;
+  background-color: #cdbab3;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.product-form,
+.sales-section,
+.expenses-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-form input,
+.sales-section input,
+.buyer-info input,
+.product-form select,
+.sales-section select,
+.expenses-section input {
+  width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.product-table {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Table and List Styles */
+
+.product-item {
+  width: 150px;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.5s ease;
+}
+
+.product-item.animate {
+  transform: translateY(-10px);
+  /* Mahsulot ko'tariladi */
+  box-shadow: 0 4px 20px rgba(0, 128, 0, 0.2);
+  /* Soyalar */
+}
+
+.product-form.open {
+  /* Formani ko'rsatish uchun uslub */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.product-form {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.product-form.shake {
+  animation: shake 0.5s;
+  /* Xatolik uchun animatsiya */
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 0);
+  }
+
+  25% {
+    transform: translate(-1px, 0);
+  }
+
+  50% {
+    transform: translate(1px, 0);
+  }
+
+  75% {
+    transform: translate(-1px, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+
+.AddActions-cart {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.product-item,
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-item:last-child,
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+.product-item p,
+.expense-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* .product-item button,
+.expense-item button {
+  background-color: #dc3545;
+} */
+
+/* .product-item button:hover,
+.expense-item button:hover {
+  background-color: #c82333;
+} */
+
+/* Balances Section */
+.balances {
+  text-align: center;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.balances p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.buyer-info input {
+  width: 80%;
+  padding: 10px;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* Media Queries */
+@media (max-width: 430px) {
+
+  h1,
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-form input,
+  .sales-section input,
+  .buyer-info input,
+  .product-form select,
+  .sales-section select,
+  .expenses-section input {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .product-table,
+  .expense-list {
+    width: 100%;
+  }
+
+  .product-item p,
+  .expense-item p {
+    font-size: 0.9rem;
+  }
+
+  .balances p {
+    font-size: 1rem;
+  }
+
+  .app-container {
+    width: 100%;
+    /* margin: 0 auto; */
+    padding: 10px 10px 70px 10px;
+    background-color: #cdbab3;
+  }
+
+
+
+  /* ----------------- */
+  .product-table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+  }
+
+  .product-item {
+    width: 48%;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.5s ease;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}

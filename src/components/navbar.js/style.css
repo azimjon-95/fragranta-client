@@ -1,0 +1,128 @@
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 6px;
+}
+
+.navLogo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navLevs button {
+    background-color: #6200ea;
+    /* Tugma fon rangi */
+    color: white;
+    /* Matn rangi */
+    border: none;
+    border-radius: 5px;
+    /* Burchaklarni yumshatish */
+    padding: 10px 15px;
+    /* Tugma o'lchami */
+    margin-left: 10px;
+    /* Tugmalar orasidagi bo'shliq */
+    cursor: pointer;
+    /* Kursorni ko'rsatgichga aylantirish */
+    display: flex;
+    align-items: center;
+    /* Ikonani va matnni vertikal markazlash */
+}
+
+.navLevs button svg {
+    margin-right: 5px;
+    /* Ikona va matn o'rtasidagi bo'shliq */
+}
+
+.navLevs button:hover {
+    background-color: #3700b3;
+    /* Tugma ustiga kelganda rang o'zgarishi */
+}
+
+.navLogo img {
+    width: 100%;
+    height: 100%;
+}
+
+.navLevs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.products-length {
+    font-size: 14px;
+    background: red;
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 50%;
+    margin-top: -10px;
+}
+
+/* Ekran kengligi 430px gacha bo'lganda */
+@media (max-width: 430px) {
+    .navbar h1 {
+        display: none;
+    }
+
+    .navLogo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid #6200ea;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -20px;
+    }
+
+    .navbar {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 0px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: #6200ea;
+        z-index: 5;
+    }
+
+    .navLevs {
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .navLevs button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #cdbab3;
+    }
+
+    .navLevs button>svg {
+        font-size: 25px;
+        color: #6200ea;
+    }
+
+    .navLevs button span {
+        display: none;
+    }
+
+
+}

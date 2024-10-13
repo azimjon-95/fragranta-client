@@ -1,0 +1,479 @@
+.product-list {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    position: relative;
+}
+
+.product-list>Button {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+
+}
+
+.date-expense {
+    position: absolute;
+    top: -19px;
+    width: 100px;
+    right: 0;
+    left: 0;
+    background: #f9f9f9;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 5px 0 0;
+}
+
+.product-list h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.toggle-form-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.toggle-form-btn:hover {
+    background-color: #0056b3;
+}
+
+.product-form {
+    display: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.product-form.open {
+    display: flex;
+    max-height: 500px;
+    opacity: 1;
+}
+
+.product-form input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-form button:hover {
+    background-color: #218838;
+}
+
+.product-table {
+    margin-top: 20px;
+}
+
+.product-item-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.product-item-cart p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.product-item-cart button {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-item-cart button:hover {
+    background-color: #c82333;
+}
+
+/* Animatsiya uchun shake effekt */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-10px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(10px);
+    }
+}
+
+.product-form.shake {
+    animation: shake 0.5s ease;
+    border: 1px solid red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sales-section-cart {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.sales-section-cart input {
+    width: 100%;
+    /* Kenglikni to'liq olish */
+    padding: 10px;
+    /* Ichki bo'shliqlar */
+    margin-bottom: 15px;
+    /* Pastki bo'shliq */
+    border: 1px solid #ccc;
+    /* Chiziq rangi */
+    border-radius: 5px;
+    /* Burchaklarni yumshatish */
+    box-sizing: border-box;
+    /* Qadoqlash */
+}
+
+.sales-section-cart select {
+    width: 100%;
+    /* Kenglikni to'liq olish */
+    padding: 10px;
+    /* Ichki bo'shliqlar */
+    margin-bottom: 15px;
+    /* Pastki bo'shliq */
+    border: 1px solid #ccc;
+    /* Chiziq rangi */
+    border-radius: 5px;
+    /* Burchaklarni yumshatish */
+    box-sizing: border-box;
+    /* Qadoqlash */
+}
+
+.sales-section-cart button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sales-section-cart button:hover {
+    background-color: #3700b3;
+    /* Tugma ustiga kelganda rang o'zgarishi */
+}
+
+
+.product-table-cart {
+    width: 70%;
+}
+
+.product-item-cart {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.product-item-cart .AddActions {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    gap: 10px;
+}
+
+.sale-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+
+}
+
+.input-group {
+    margin: 10px 0;
+}
+
+.buyer-info input {
+    margin: 5px 0;
+}
+
+
+.product-item-cart p {
+    margin: 0;
+    font-size: 16px;
+}
+
+
+.quantity-display {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.info-cart {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.info-cart p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 10px;
+}
+
+
+.product-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.product-name {
+    font-size: 16px;
+    /* Mahsulot nomi uchun font o'lchami */
+    font-weight: bold;
+    width: 170px;
+    margin: 0;
+    /* Marginni olib tashlash */
+}
+
+.product-price,
+.product-quantity,
+.product-total {
+    margin: 5px 0;
+    /* Mahsulot narxi, miqdori va jami uchun vertikal bo'sh joy */
+}
+
+
+
+
+.sales-history {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.sale-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 250px;
+}
+
+
+
+.sale-products {
+    margin-top: 10px;
+}
+
+.sale-product {
+    margin-left: 20px;
+}
+
+/* Responsiv dizayn */
+@media (max-width: 768px) {
+    .product-item-cart {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .AddActions {
+        justify-content: flex-start;
+    }
+
+    .input-group,
+    .buyer-info {
+        width: 100%;
+    }
+
+    .sale-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    .product-table-cart {
+        width: 100%;
+    }
+
+    .product-item-cart {
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: white;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .sales-section-cart {
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .product-name {
+        font-size: 14px;
+        /* Mahsulot nomi uchun font o'lchami */
+        font-weight: bold;
+        width: 80px;
+        margin: 0;
+        /* Marginni olib tashlash */
+    }
+
+    .product-price,
+    .product-quantity,
+    .product-total {
+        font-size: 14px;
+        margin: 2px 0;
+        /* Mahsulot narxi, miqdori va jami uchun vertikal bo'sh joy */
+    }
+
+    .AddActions {
+        position: absolute;
+        right: 10px;
+        bottom: 2px;
+    }
+
+    .product-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 3px;
+    }
+
+    .sale-inputs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+    }
+
+    .info-cart {
+        padding: 5px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .product-list {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .product-list>Button {
+        position: static;
+        right: 10px;
+        top: 20px;
+    }
+
+    .product-table {
+        margin-top: 0px;
+    }
+
+    .product-form {
+        display: none;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 0px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        opacity: 0;
+    }
+
+}
