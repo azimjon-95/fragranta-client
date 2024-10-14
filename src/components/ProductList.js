@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api';
 import './style.css';
-import { Button, Input, message } from 'antd';
+import { Button, Input, message, Spin } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext'; // CartContext'dan foydalanish
@@ -10,6 +10,8 @@ import { NumberFormat } from '../hooks/NumberFormat';
 const ProductList = () => {
     const { addToCart } = useCart(); // CartContext'dan addToCart ni oling
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true); // Yuklanish holati uchun state
+    const [loadingSubmit, setLoadingSubmit] = useState(false); // Yaratish yoki tahrirlash yuklanishi uchun state
     const [newProduct, setNewProduct] = useState({
         name: '',
         description: '',
@@ -28,11 +30,14 @@ const ProductList = () => {
     }, []);
 
     const fetchProducts = async () => {
+        setLoading(true); // Yuklanish holati boshlandi
         try {
             const response = await axios.get('/api/products');
             setProducts(response.data);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false); // Yuklanish holati tugadi
         }
     };
 
@@ -52,6 +57,7 @@ const ProductList = () => {
             return;
         }
 
+        setLoadingSubmit(true); // Tugma loading holatga o'tadi
         try {
             if (editMode) {
                 await axios.put(`/api/products/${editingProductId}`, newProduct);
@@ -63,12 +69,14 @@ const ProductList = () => {
                 message.success('Mahsulot qo\'shildi!');
             }
 
-            fetchProducts();
+            await fetchProducts(); // Mahsulotlar ro'yxatini yangilash
             setNewProduct({ name: '', description: '', purchasePrice: '', sellingPrice: '', quantity: '' });
             setShowForm(false);
             setFormError(false);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoadingSubmit(false); // Yaratish jarayoni tugadi, loading to'xtaydi
         }
     };
 
@@ -128,26 +136,38 @@ const ProductList = () => {
                 <Input name="sellingPrice" placeholder="Sotish narxi" value={newProduct.sellingPrice} onChange={handleInputChange} />
                 <Input name="quantity" placeholder="Miqdori" value={newProduct.quantity} onChange={handleInputChange} />
                 <div className="form-actions">
-                    <Button type="primary" onClick={addProduct}>
+                    <Button
+                        type="primary"
+                        onClick={addProduct}
+                        loading={loadingSubmit} // Tugma yuklanish animatsiyasini ko'rsatadi
+                        disabled={loadingSubmit} // Mahsulot qo'shilayotganda tugma deaktiv holatga o'tadi
+                    >
                         {editMode ? 'Tahrirlashni saqlash' : 'Mahsulot qo\'shish'}
                     </Button>
-                    <Button onClick={closeForm} type="default">Formani yopish</Button>
+                    <Button onClick={closeForm} type="primary" danger>X</Button>
                 </div>
             </div>
-            <div className="product-table">
-                {products.map((product) => (
-                    <div key={product._id} className={`product-item ${animateProductId === product._id ? 'animate' : ''}`}>
-                        <strong>{product.name}</strong>
-                        <p>Narxi: {NumberFormat(product.sellingPrice)} so'm</p>
-                        <p>Miqdori: {product.quantity}</p>
-                        <div className="AddActions-cart">
-                            <Button style={{ background: "green", padding: '0 22px' }} onClick={() => addToProduct(product)} icon={<FaShoppingCart />} type="primary"></Button>
-                            <Button onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
-                            <Button onClick={() => deleteProduct(product._id)} icon={<DeleteOutlined />} type="danger"></Button>
+
+            {loading ? (
+                <div className="loading-spinner">
+                    <Spin size="large" />
+                </div>
+            ) : (
+                <div className="product-table">
+                    {products.map((product) => (
+                        <div key={product._id} className={`product-item ${animateProductId === product._id ? 'animate' : ''}`}>
+                            <strong>{product.name}</strong>
+                            <p>Narxi: {NumberFormat(product.sellingPrice)} so'm</p>
+                            <p>Miqdori: {product.quantity}</p>
+                            <div className="AddActions-cart">
+                                <Button style={{ background: "green", padding: '0 22px' }} onClick={() => addToProduct(product)} icon={<FaShoppingCart />} type="primary"></Button>
+                                <Button onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
+                                <Button onClick={() => deleteProduct(product._id)} icon={<DeleteOutlined />} type="danger"></Button>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
