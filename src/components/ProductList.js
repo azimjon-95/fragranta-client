@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api';
 import './style.css';
-import { Button, Input, message, Spin } from 'antd';
+import { Button, Input, message, Skeleton, Row, Col } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext'; // CartContext'dan foydalanish
@@ -149,8 +149,19 @@ const ProductList = () => {
             </div>
 
             {loading ? (
-                <div className="loading-spinner">
-                    <Spin size="large" />
+                // Loading state uchun Skeleton componentlari
+                <div className="loading-skeleton">
+                    <Row gutter={[16, 16]}>
+                        {[...Array(4)].map((_, index) => (
+                            <Col key={index} style={{ height: "150px" }} className="product-item">
+                                <Skeleton.Button active shape="square" style={{ width: '100%', height: '20px' }} />
+                                <Skeleton active title={false} paragraph={{ rows: 1 }} />
+                                <Skeleton active title={false} paragraph={{ rows: 1 }} />
+                                <Skeleton active title={false} paragraph={{ rows: 1 }} />
+                                <Skeleton.Button active shape="square" style={{ width: '100%', height: '40px' }} />
+                            </Col>
+                        ))}
+                    </Row>
                 </div>
             ) : (
                 <div className="product-table">
