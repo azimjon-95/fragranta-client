@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../api';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import moment from 'moment'; // Moment kutubxonasini import qilish
 import './style.css'
+import { NumberFormat } from '../hooks/NumberFormat';
+
 
 const Expenses = () => {
     const [expenses, setExpenses] = useState([]);
@@ -38,10 +40,23 @@ const Expenses = () => {
 
             // Muvaffaqiyatli xabar chiqarish
             message.success("Xarajat muvaffaqiyatli qo'shildi");
-        } catch (error) {
-            console.error('Xarajat qo\'shishda xatolik:', error.response?.data || error.message);
         }
-    };
+        catch (error) {
+            // Handle the error response from the server
+            if (error.response && error.response.status === 400) {
+                notification.error({
+                    message: 'Xato!',
+                    description: error.response.data.message,  // "Balans yetarli emas"
+                });
+            } else {
+                notification.error({
+                    message: 'Xato!',
+                    description: 'Xarajat qo\'shishda muammo yuz berdi',
+                });
+            }
+        }
+    }
+
 
     return (
         <div className="expenses-section">
@@ -87,7 +102,7 @@ const Expenses = () => {
                             color: '#4caf50',
                             margin: '0'
                         }}>
-                            <strong>Miqdori:</strong> {expense.amount} so'm
+                            <strong>Miqdori:</strong> {NumberFormat(expense.amount)} so'm
                         </p>
                         <p className="date-expense">
                             {moment(expense.date).format("DD.MM.YYYY")}

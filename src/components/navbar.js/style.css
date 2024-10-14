@@ -69,6 +69,10 @@
     margin-top: -10px;
 }
 
+.mobil {
+    display: none;
+}
+
 /* Ekran kengligi 430px gacha bo'lganda */
 @media (max-width: 430px) {
     .navbar h1 {
@@ -124,5 +128,11 @@
         display: none;
     }
 
+    .desc {
+        display: none;
+    }
 
+    .mobil {
+        display: block;
+    }
 }

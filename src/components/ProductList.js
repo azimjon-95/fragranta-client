@@ -125,7 +125,8 @@ const ProductList = () => {
 
     return (
         <div className="product-list">
-            <h2>Mahsulotlarni boshqarish</h2>
+            <h2 className='desc'>Mahsulotlarni boshqarish</h2>
+            <h2 className='mobil'> Fragranta savdo boshqaruvi</h2>
             <Button type="primary" onClick={() => setShowForm(!showForm)} icon={<PlusOutlined />}>
                 {showForm ? 'Formani yopish' : 'Qo\'shish'}
             </Button>
@@ -172,7 +173,7 @@ const ProductList = () => {
                             <p>Miqdori: {product.quantity}</p>
                             <div className="AddActions-cart">
                                 <Button style={{ background: "#1677ff", padding: '0 22px' }} onClick={() => addToProduct(product)} icon={<FaShoppingCart />} type="primary"></Button>
-                                <Button style={{ border: ".5px solid #1677ff" }} onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
+                                <Button style={{ border: "1px solid #1677ff" }} onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
                                 <Button onClick={() => deleteProduct(product._id)} icon={<DeleteOutlined />} type="danger"></Button>
                             </div>
                         </div>
