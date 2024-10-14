@@ -485,3 +485,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.css-dev-only-do-not-override-vryruh .ant-empty-description {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import './style.css';
-import { Button, message, Tabs, Collapse, Card } from 'antd';
+import { Button, message, Tabs, Collapse, Card, Spin, Empty } from 'antd';
 import axios from '../api';
 import { ShoppingCartOutlined, UserOutlined, PhoneOutlined, CalendarOutlined, MinusOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { NumberFormat } from '../hooks/NumberFormat';
@@ -119,8 +119,13 @@ const Sales = () => {
         getHistory();
     }, []);
 
-    if (loading) return <p>Yuklanmoqda...</p>;
-    if (error) return <p>Xatolik: {error}</p>;
+    if (loading) return <div className="loading-spinner">
+        <Spin size="large" />
+    </div>;
+    if (error) return <div className="loading-spinner">
+        Xatolik: {error}
+    </div>;
+
     const filteredSales = (type) => data.filter(sale => sale.saleType === type);
     const formatDate = (date) => {
         const options = {
@@ -352,7 +357,7 @@ const Sales = () => {
                         </TabPane >
                     </Tabs >
                 ) : (
-                    <p>Sotuvlar mavjud emas.</p>
+                    <Empty description="Sotuvlar mavjud emas." />
                 )}
             </div >
         </>
