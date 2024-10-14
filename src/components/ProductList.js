@@ -171,8 +171,8 @@ const ProductList = () => {
                             <p>Narxi: {NumberFormat(product.sellingPrice)} so'm</p>
                             <p>Miqdori: {product.quantity}</p>
                             <div className="AddActions-cart">
-                                <Button style={{ background: "green", padding: '0 22px' }} onClick={() => addToProduct(product)} icon={<FaShoppingCart />} type="primary"></Button>
-                                <Button onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
+                                <Button style={{ background: "#1677ff", padding: '0 22px' }} onClick={() => addToProduct(product)} icon={<FaShoppingCart />} type="primary"></Button>
+                                <Button style={{ border: ".5px solid #1677ff" }} onClick={() => editProduct(product)} icon={<EditOutlined />} type="default"></Button>
                                 <Button onClick={() => deleteProduct(product._id)} icon={<DeleteOutlined />} type="danger"></Button>
                             </div>
                         </div>

@@ -79,7 +79,7 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        border: 2px solid #6200ea;
+        border: 2px solid #1677ff;
         overflow: hidden;
         display: flex;
         justify-content: center;
@@ -99,7 +99,7 @@
         bottom: 0;
         right: 0;
         left: 0;
-        background-color: #6200ea;
+        background-color: #1677ff;
         z-index: 5;
     }
 
@@ -117,7 +117,7 @@
 
     .navLevs button>svg {
         font-size: 25px;
-        color: #6200ea;
+        color: #1677ff;
     }
 
     .navLevs button span {
