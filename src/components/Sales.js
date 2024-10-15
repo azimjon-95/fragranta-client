@@ -42,8 +42,8 @@ const Sales = () => {
         let totalQuantity = 0;
 
         products?.forEach((product) => {
-            const quantity = saleInfo.quantities[product._id] || product.quantity || 0;
-            const price = Number(product.purchasePrice) || 0;
+            const quantity = saleInfo.quantities[product._id] || product.quantity;
+            const price = Number(product.sellingPrice);
 
             total += price * quantity;
             totalQuantity += quantity;
@@ -67,8 +67,9 @@ const Sales = () => {
                     id: product._id,
                     name: product.name,
                     price: Number(product.purchasePrice),
+                    sellPrice: Number(product.sellingPrice),
                     quantity: saleInfo.quantities[product._id] || product.quantity,
-                    total: Number(product.purchasePrice) * (saleInfo.quantities[product._id] || product.quantity),
+                    total: Number(product.sellingPrice) * product.quantity,
                 })),
             };
 
@@ -159,7 +160,7 @@ const Sales = () => {
             message.error('Balansni yangilashda xatolik yuz berdi!'); // Xatolik haqida xabar
         }
     };
-
+    console.log(data);
     return (
         <>
             {
@@ -168,14 +169,14 @@ const Sales = () => {
                     <div className="product-table-cart">
                         {products?.map((product) => {
                             const quantity = saleInfo.quantities[product._id] || product.quantity || 0;
-                            const price = Number(product.purchasePrice) || 0;
+                            const price = Number(product.sellingPrice) || 0;
                             const totalPrice = price * quantity;
 
                             return (
                                 <div key={product._id} className="product-item-cart">
                                     <div className="product-info">
                                         <p className="product-name">{product.name}</p>
-                                        <p className="product-price">{NumberFormat(product.purchasePrice)} so'm</p> |
+                                        <p className="product-price">{NumberFormat(product.sellingPrice)} so'm</p> |
                                         <p className="product-quantity">x{quantity}</p> |
                                         <p className="product-total">{NumberFormat(totalPrice)} so'm</p>
                                     </div>
@@ -341,12 +342,10 @@ const Sales = () => {
                                                     }}
                                                 >
                                                     {/* <div > */}
-                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Nomi:<span style={{ marginLeft: "8px", fontSize: "16px" }}>{product.name}</span></strong>
-                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Miqdor: <span style={{ marginLeft: "8px", fontSize: "16px" }}>{product.quantity} ta</span></strong>
-                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Narx: <span style={{ marginLeft: "8px", fontSize: "16px", color: "#4caf50" }}>
-                                                        {NumberFormat(product.price)} so'm
-                                                    </span></strong>
-
+                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Nomi:<span style={{ marginLeft: "8px", fontSize: "16px" }}>{product.name}</span></strong><br />
+                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Narx: <span style={{ marginLeft: "8px", fontSize: "16px", color: "#4caf50" }}> {NumberFormat(product.sellPrice)} so'm </span></strong><br />
+                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Miqdor: <span style={{ marginLeft: "8px", fontSize: "16px" }}>{product.quantity} ta</span></strong><br />
+                                                    <strong style={{ fontSize: "16px", color: "#333" }}>Jammi: <span style={{ marginLeft: "8px", fontSize: "16px", color: "#4caf50" }}> {NumberFormat(product.total)} so'm </span></strong>
                                                     {/* </div> */}
                                                 </Card>
                                             ))}

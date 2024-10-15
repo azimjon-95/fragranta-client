@@ -4,6 +4,8 @@ import './style.css';
 import logo from '../../assets/FragrantaLogo.png';
 import { FaHome, FaShoppingCart, FaMoneyBillWave, FaChartPie } from 'react-icons/fa'; // Ikonalarni import qilish
 import { useCart } from '../../context/CartContext';
+import { FaBell } from 'react-icons/fa';
+
 
 const Navbar = () => {
     const { state } = useCart();
@@ -20,6 +22,22 @@ const Navbar = () => {
             <h1>Fragranta savdo boshqaruvi</h1>
 
             <div className="navLevs">
+                <Link to="/todos">
+                    <button>
+                        <FaBell /><span>Eslatma</span>
+                    </button>
+                </Link>
+                <Link to="/expenses">
+                    <button>
+                        <FaChartPie /><span>Xarajatlar</span>
+                    </button>
+                </Link>
+
+                <Link to="/">
+                    <div className="navLogo-mob">
+                        <img src={logo} alt="Fragranta Logo" />
+                    </div>
+                </Link>
                 <Link to="/sales">
                     <button>
                         <FaShoppingCart /> <span>Sotuvlar</span>{products?.length > 0 && <p className='products-length'>{products?.length}</p>}
@@ -30,11 +48,7 @@ const Navbar = () => {
                         <FaMoneyBillWave /> <span>Balans</span>
                     </button>
                 </Link>
-                <Link to="/expenses">
-                    <button>
-                        <FaChartPie /><span>Xarajatlar</span>
-                    </button>
-                </Link>
+
             </div>
         </div>
     )
