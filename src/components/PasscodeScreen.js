@@ -23,7 +23,7 @@ const DotsContainer = styled.div`
 `;
 
 const Dot = styled.div`
-  width:  22px;
+  width: 22px;
   height: 22px;
   margin: 0 5px;
   border-radius: 50%;
@@ -46,8 +46,8 @@ const Keypad = styled.div`
 const Key = styled.button`
   background-color: ${(props) => (props.special ? "#2f3437" : "#ffffff")};
   color: ${(props) => (props.special ? "#ffffff" : "#000000")};
-  font-size:  ${(props) => (props.ok ? "26px" : "32px")};
-  width:  80px;
+  font-size: ${(props) => (props.ok ? "26px" : "32px")};
+  width: 80px;
   height: 80px;
   border: none;
   display: flex;
@@ -71,8 +71,11 @@ const Key = styled.button`
 export default function PasscodeScreen({ setIsAuthenticated }) {
     const [passcode, setPasscode] = useState([]);
     const [isSettingPasscode, setIsSettingPasscode] = useState(false);
-    const [newPasscode, setNewPasscode] = useState(""); // Store the new passcode
+    const [newPasscode, setNewPasscode] = useState(""); // Yangi parolni saqlash
     const storedPasscode = localStorage.getItem("myPasscode");
+    const [timer, setTimer] = useState(60); // 60-soniyali taymer
+    const [isLocked, setIsLocked] = useState(false); // Klaviatura bloklanganligi
+    const [attempts, setAttempts] = useState(0); // Noto'g'ri urinishlar uchun
 
     // Tekshirish: sessionStorage'da passcode bormi?
     useEffect(() => {
@@ -86,8 +89,23 @@ export default function PasscodeScreen({ setIsAuthenticated }) {
         }
     }, [storedPasscode]);
 
+    // Taymerni boshqarish
+    useEffect(() => {
+        let timeout;
+        if (isLocked) {
+            if (timer > 0) {
+                timeout = setTimeout(() => setTimer(timer - 1), 1000);
+            } else {
+                setIsLocked(false); // Blokirovkani ochish
+                setTimer(60); // Taymerni qayta o'rnatish
+                setAttempts(0); // Noto'g'ri urinishlarni qayta boshlash
+            }
+        }
+        return () => clearTimeout(timeout);
+    }, [isLocked, timer]);
+
     const handleKeyPress = (key) => {
-        if (passcode.length < 4) {
+        if (!isLocked && passcode.length < 4) {
             const newPasscodeEntry = [...passcode, key];
             setPasscode(newPasscodeEntry);
 
@@ -103,16 +121,18 @@ export default function PasscodeScreen({ setIsAuthenticated }) {
     };
 
     const handleDelete = () => {
-        setPasscode(passcode.slice(0, -1));
+        if (!isLocked) {
+            setPasscode(passcode.slice(0, -1));
+        }
     };
 
     const handleSetPasscode = (currentPasscode) => {
         if (!newPasscode) {
             // Birinchi marta parolni kiritish
-            setNewPasscode(currentPasscode.join(''));
+            setNewPasscode(currentPasscode.join(""));
             setPasscode([]); // Parolni tasdiqlash uchun tozalash
             message.info("Iltimos, parolingizni tasdiqlang.");
-        } else if (newPasscode === currentPasscode.join('')) {
+        } else if (newPasscode === currentPasscode.join("")) {
             // Tasdiqlangan parolni saqlash
             localStorage.setItem("myPasscode", newPasscode);
             sessionStorage.setItem("passcodeSession", "authenticated"); // Sessiya davomida tasdiqlangan holat
@@ -128,13 +148,19 @@ export default function PasscodeScreen({ setIsAuthenticated }) {
     };
 
     const handleSubmit = (currentPasscode) => {
-        if (currentPasscode.join('') === storedPasscode) {
+        if (currentPasscode.join("") === storedPasscode) {
             sessionStorage.setItem("passcodeSession", "authenticated"); // Sessiya davomida kirish imkonini berish
             message.success("Parol to‘g‘ri!");
             setIsAuthenticated(true);
         } else {
-            setPasscode([]); // Noto'g'ri parol kiritilganida tozalash
             message.error("Parol noto‘g‘ri. Qaytadan urinib ko'ring.");
+            setAttempts(attempts + 1);
+
+            if (attempts >= 2) {
+                setIsLocked(true); // Noto'g'ri urinishlar ko'payganda blokirovka
+                message.error("Ko'p urinishlar noto'g'ri. Klaviatura bloklandi.");
+            }
+            setPasscode([]); // Passcode-ni tozalash
         }
     };
 
@@ -165,19 +191,17 @@ export default function PasscodeScreen({ setIsAuthenticated }) {
                     </Key>
                 ))}
 
-
                 {/* 0 ni ikkita o'chirish tugmasi orasiga joylashtirish */}
                 <Key special onClick={handleDelete}>⌫</Key>
-                <Key key="0" onClick={() => handleKeyPress("0")}>
-                    0
-                </Key>
+                <Key key="0" onClick={() => handleKeyPress("0")}>0</Key>
 
                 {/* Birinchi delete tugmasi */}
                 <Key ok onClick={handleDelete}>
-                    OK {/* Ant Design check icon */}
+                    OK
                 </Key>
-                {/* Ikkinchi delete tugmasi */}
             </Keypad>
+
+            {isLocked && <p>Iltimos, {timer} soniya kuting va qayta urinib ko‘ring.</p>}
         </PasscodeContainer>
     );
 }
