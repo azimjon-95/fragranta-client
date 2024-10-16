@@ -86,13 +86,13 @@ const TodoList = () => {
                     {editId ? 'Yangilash' : 'Qo\'shish'}
                 </button>
             </form>
-            <br />
+            {/* <br />
             <hr />
             <p className="description">
                 Tovarlar ro'yxati - bu sizning mahsulotlaringizni boshqarish va kuzatishga yordam beruvchi qulay vosita. Ushbu ilova orqali siz yangi tovarlarni qo'shishingiz, mavjud tovarlarni tahrirlashingiz va o'chirishingiz mumkin.
                 Mahsulotlar ro'yxatini yaratish, ularni tasniflash va zaruriy ma'lumotlar bilan to'ldirish orqali ish jarayonini yanada samarali qiladi.
                 Har bir tovar uchun batafsil ma'lumot qo'shish imkoniyati sizga tovarlarni tezda topish va kerakli o'zgarishlarni kiritishga yordam beradi.
-            </p>
+            </p> */}
         </div>
     );
 };

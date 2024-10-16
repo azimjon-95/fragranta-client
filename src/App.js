@@ -44,7 +44,7 @@ function App() {
               <Route path="/balances" element={<Balances />} />
               <Route path="/expenses" element={<Expenses />} />
               {/* If no matching route, redirect to home */}
-              {/* <Route path="*" element={<Navigate to="/" />} /> */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
         ) : (
