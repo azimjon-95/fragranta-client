@@ -47,8 +47,8 @@ const Key = styled.button`
   background-color: ${(props) => (props.special ? "#2f3437" : "#ffffff")};
   color: ${(props) => (props.special ? "#ffffff" : "#000000")};
   font-size:  ${(props) => (props.ok ? "26px" : "32px")};
-  width:  90px;
-  height: 90px;
+  width:  80px;
+  height: 80px;
   border: none;
   display: flex;
   justify-content: center;

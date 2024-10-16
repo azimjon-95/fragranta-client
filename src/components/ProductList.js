@@ -196,7 +196,7 @@ const ProductList = () => {
                 // Loading state uchun Skeleton componentlari
                 <div className="loading-skeleton">
                     <Row gutter={[16, 16]}>
-                        {[...Array(filteredProducts?.length)].map((_, index) => (
+                        {[...Array(6)].map((_, index) => (
                             <Col key={index} style={{ height: "150px" }} className="product-item">
                                 <Skeleton.Button active shape="square" style={{ width: '100%', height: '20px' }} />
                                 <Skeleton active title={false} paragraph={{ rows: 1 }} />
