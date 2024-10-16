@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import ProductList from './components/ProductList';
 import Sales from './components/Sales';
 import Balances from './components/Balances';
@@ -10,28 +10,55 @@ import TodoList from './components/TodoList';
 import PasscodeScreen from './components/PasscodeScreen';
 
 function App() {
-  // Avtorizatsiya holatini tekshirish
-  const isAuthenticated = sessionStorage.getItem("authenticated") === "true";
+  const navigate = useNavigate();
+
+  // State for authentication
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    sessionStorage.getItem("passcodeSession") === "authenticated"
+  );
+
+  // Monitor sessionStorage for changes and update the state
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const sessionStatus = sessionStorage.getItem("passcodeSession") === "authenticated";
+      setIsAuthenticated(sessionStatus);
+    };
+
+    window.addEventListener("storage", checkAuthStatus); // Listen for changes in sessionStorage
+
+    return () => {
+      window.removeEventListener("storage", checkAuthStatus); // Clean up the event listener
+    };
+  }, []);
+
+  // Automatically navigate if authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/"); // If authenticated, navigate to the home page
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
-    <div className="app-container">
-      {!isAuthenticated ? (
-        <PasscodeScreen /> // Agar avtorizatsiya qilinmagan bo'lsa, PasscodeScreen ko'rsatiladi
-      ) : (
-        <>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<ProductList />} />
-            <Route path="/sales" element={<Sales />} />
-            <Route path="/todos" element={<TodoList />} />
-            <Route path="/balances" element={<Balances />} />
-            <Route path="/expenses" element={<Expenses />} />
-            {/* Agar sahifalar mavjud bo'lmasa, 404 sahifaga yo'naltirish */}
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </>
-      )}
-    </div>
+    <>
+      {
+        isAuthenticated ? (
+          <div className="app-container" >
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<ProductList />} />
+              <Route path="/sales" element={<Sales />} />
+              <Route path="/todos" element={<TodoList />} />
+              <Route path="/balances" element={<Balances />} />
+              <Route path="/expenses" element={<Expenses />} />
+              {/* If no matching route, redirect to home */}
+              {/* <Route path="*" element={<Navigate to="/" />} /> */}
+            </Routes>
+          </div>
+        ) : (
+          <PasscodeScreen setIsAuthenticated={setIsAuthenticated} /> // Pass setIsAuthenticated to update state after passcode entry
+        )
+      }
+    </>
   );
 }
 

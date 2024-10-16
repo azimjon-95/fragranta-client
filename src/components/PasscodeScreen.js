@@ -23,8 +23,8 @@ const DotsContainer = styled.div`
 `;
 
 const Dot = styled.div`
-  width: 12px;
-  height: 12px;
+  width:  22px;
+  height: 22px;
   margin: 0 5px;
   border-radius: 50%;
   background-color: ${(props) => (props.filled ? "#43B581" : "#bdbdbd")};
@@ -38,17 +38,17 @@ const Dot = styled.div`
 const Keypad = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 250px;
+  gap: 20px;
+  max-width: 300px;
   margin: 20px 0;
 `;
 
 const Key = styled.button`
   background-color: ${(props) => (props.special ? "#2f3437" : "#ffffff")};
   color: ${(props) => (props.special ? "#ffffff" : "#000000")};
-  font-size: 24px;
-  width: 60px;
-  height: 60px;
+  font-size:  ${(props) => (props.ok ? "26px" : "32px")};
+  width:  90px;
+  height: 90px;
   border: none;
   display: flex;
   justify-content: center;
@@ -68,7 +68,7 @@ const Key = styled.button`
   }
 `;
 
-export default function PasscodeScreen() {
+export default function PasscodeScreen({ setIsAuthenticated }) {
     const [passcode, setPasscode] = useState([]);
     const [isSettingPasscode, setIsSettingPasscode] = useState(false);
     const [newPasscode, setNewPasscode] = useState(""); // Store the new passcode
@@ -131,6 +131,7 @@ export default function PasscodeScreen() {
         if (currentPasscode.join('') === storedPasscode) {
             sessionStorage.setItem("passcodeSession", "authenticated"); // Sessiya davomida kirish imkonini berish
             message.success("Parol to‘g‘ri!");
+            setIsAuthenticated(true);
         } else {
             setPasscode([]); // Noto'g'ri parol kiritilganida tozalash
             message.error("Parol noto‘g‘ri. Qaytadan urinib ko'ring.");
@@ -158,12 +159,24 @@ export default function PasscodeScreen() {
             </DotsContainer>
 
             <Keypad>
-                {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((num) => (
+                {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((num) => (
                     <Key key={num} onClick={() => handleKeyPress(num)}>
                         {num}
                     </Key>
                 ))}
+
+
+                {/* 0 ni ikkita o'chirish tugmasi orasiga joylashtirish */}
                 <Key special onClick={handleDelete}>⌫</Key>
+                <Key key="0" onClick={() => handleKeyPress("0")}>
+                    0
+                </Key>
+
+                {/* Birinchi delete tugmasi */}
+                <Key ok onClick={handleDelete}>
+                    OK {/* Ant Design check icon */}
+                </Key>
+                {/* Ikkinchi delete tugmasi */}
             </Keypad>
         </PasscodeContainer>
     );
