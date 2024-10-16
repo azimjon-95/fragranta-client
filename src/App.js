@@ -31,13 +31,6 @@ function App() {
     };
   }, []);
 
-  // Automatically navigate if authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/"); // If authenticated, navigate to the home page
-    }
-  }, [isAuthenticated, navigate]);
-
   return (
     <>
       {
