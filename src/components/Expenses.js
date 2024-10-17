@@ -75,7 +75,7 @@ const Expenses = () => {
             />
             <button onClick={addExpense}>Xarajat qo'shish</button>
 
-            <div className="expense-list" style={{ marginTop: '20px' }}>
+            <div className="expense-list" style={{ marginTop: '10px' }}>
                 {expenses.map((expense) => (
                     <div
                         key={expense._id}
