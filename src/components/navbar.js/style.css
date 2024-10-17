@@ -97,13 +97,50 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        border: 2px solid #f0f0f0;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #f0f0f0;
+        background: #cdbcb2;
         margin-top: -20px;
+        box-shadow: 0 -4px 4px -2px rgba(0, 0, 0, 0.1);
+        border: 2px solid transparent;
+        /* Initial border */
+        position: relative;
+        /* Necessary for the pseudo-element */
+        animation: border-animation 3s infinite;
+        /* Add animation */
+    }
+
+    @keyframes border-animation {
+        0% {
+            border-color: #ff5733;
+            /* First color */
+        }
+
+        25% {
+            border-color: #33ff57;
+            /* Second color */
+        }
+
+        50% {
+            border-color: #3357ff;
+            /* Third color */
+        }
+
+        75% {
+            border-color: #ff33a1;
+            /* Fourth color */
+        }
+
+        100% {
+            border-color: #ff5733;
+            /* Back to the first color */
+        }
+    }
+
+    .navLogo-mob>img {
+        margin-top: -5px;
     }
 
     .navbar {

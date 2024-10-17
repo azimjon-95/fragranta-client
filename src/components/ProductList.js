@@ -5,7 +5,9 @@ import { Button, Input, message, Skeleton, Row, Col, Modal } from 'antd';
 import { SearchOutlined, PlusOutlined, EditOutlined, DeleteOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../context/CartContext'; // CartContext'dan foydalanish
+import { AppstoreAddOutlined } from '@ant-design/icons';
 import { NumberFormat } from '../hooks/NumberFormat';
+import { BsBoxSeam } from "react-icons/bs";
 
 const ProductList = () => {
     const { addToCart } = useCart(); // CartContext'dan addToCart ni oling
@@ -25,22 +27,31 @@ const ProductList = () => {
     const [editingProductId, setEditingProductId] = useState(null);
     const [animateProductId, setAnimateProductId] = useState(null); // Animatsiya uchun state
     const [searchTerm, setSearchTerm] = useState(''); // Izlash uchun state
+    const [productLength, setProductLength] = useState([]); // Izlash uchun state
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
+    console.log(productLength);
+
     const fetchProducts = async () => {
         setLoading(true); // Yuklanish holati boshlandi
         try {
-            const response = await axios.get('/api/products');
+            const [response, resLength] = await Promise.all([
+                axios.get('/api/products'),
+                axios.get('/api/products/total-quantity')
+            ]);
+
             setProducts(response.data);
+            setProductLength(resLength.data);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false); // Yuklanish holati tugadi
         }
     };
+
 
     const handleInputChange = (e) => {
         setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
@@ -153,6 +164,12 @@ const ProductList = () => {
                 !showForm ?
 
                     <div className='Search-input'>
+
+
+                        <p>
+                            <BsBoxSeam style={{ marginRight: 4 }} />
+                            {productLength?.productCount}/{productLength?.totalQuantity}
+                        </p>
                         <Input
                             placeholder="Mahsulotni qidirish..."
                             value={searchTerm}

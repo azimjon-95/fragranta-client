@@ -12,7 +12,16 @@
 .Search-input {
     display: flex;
     gap: 8px;
+    position: relative;
 
+}
+
+.Search-input>p {
+    font-size: 13px;
+    color: #999999;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .reset-button {
@@ -508,6 +517,14 @@
         width: 80px;
     }
 
+    .Search-input>p {
+        position: absolute;
+        display: flex;
+        left: 0;
+        top: 32px;
+        font-size: 13px;
+        color: #999999
+    }
 }
 
 .loading-spinner {
